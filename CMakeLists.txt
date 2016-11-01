@@ -5,7 +5,12 @@ find_package(catkin REQUIRED)
 
 # we don't build anything here, but in order to export the right
 # build flags in catkin_package(), we still have to find Eigen3 here
-find_package(Eigen3 REQUIRED)
+if(APPLE) 
+  find_package(PkgConfig)
+  pkg_search_module(Eigen3 REQUIRED eigen3)
+else()
+  find_package(Eigen3 REQUIRED)
+endif()
 
 # eigen 3.2 (wily) only provdies EIGEN3_INCLUDE_DIR, not EIGEN3_INCLUDE_DIRS
 if(NOT EIGEN3_INCLUDE_DIRS)
